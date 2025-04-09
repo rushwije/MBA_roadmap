@@ -6,7 +6,7 @@ date: "2025-04-09"
 
 # Simulation study and analysis scripts for paper "A roadmap for systematic identification and analysis of multiple biases in causal inference"
 
-Authors: Wijesuriya R.^\*^, Hughes R.A., Carlin J.B, Peters R.L ., Koplin J.J , and Moreno-Betancur M.
+Authors: Wijesuriya R.\*, Hughes R.A., Carlin J.B, Peters R.L ., Koplin J.J , and Moreno-Betancur M.
 
 \*Author responsible for the code
 
