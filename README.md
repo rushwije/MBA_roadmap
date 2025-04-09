@@ -1,12 +1,12 @@
 ---
 title: "Scripts for MBA paper"
-output: html_document
+output: markdown
 date: "2025-04-09"
 ---
 
 # Simulation study and analysis scripts for paper "A roadmap for systematic identification and analysis of multiple biases in causal inference"
 
-Authors: Wijesuriya R.^1,2\*^, Hughes R.A.^3,4^, Carlin J.B^1,2^, Peters R.L ^5.6^., Koplin J.J ^6,7.^, and Moreno-Betancur M. ^1,2^
+Authors: Wijesuriya R.^\*^, Hughes R.A., Carlin J.B, Peters R.L ., Koplin J.J , and Moreno-Betancur M.
 
 \*Author responsible for the code
 
