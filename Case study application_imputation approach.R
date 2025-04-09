@@ -1126,14 +1126,17 @@ Table5[2,] <- c("All biases",RD,
 
 #order the table
 
-
 write.csv (Table5,"case study results.csv")
+
+
 #-------------------------------Figure 6
 
 Table_RD <- data.frame(matrix(ncol = 7, nrow = 8))
+
 names(Table_RD) <- c("Biases adjusted for","Risk difference","LCIRD","UCIRD","Risk ratio","LCIRR","UCIRR")
 Table_RD$`Biases adjusted for` <- c("Primary analysis","SB-collider stratification","SB-generalizability (consent)",
                                     "SB-generalizability (ethnicity)","MB-A","MB-Y","CB","All-biases")
+
 Table_RD$`Risk difference` <- c(Table5$`Risk difference`)
 Table_RD$`Risk difference` <- as.numeric(Table_RD$`Risk difference` )
 

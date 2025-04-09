@@ -1,7 +1,7 @@
 ##################################################################################
 #  Methodology for systematic identification of multiple bias analysis in causal 
-#  inference : simulation study-assesing performance _tables and figures
-#  Data used: HealthNuts data 
+#  inference : simulation study-assesing performance and generating tables
+#  Data used: Simulated Data
 #  Author: Rushani Wijesuriya 20 August 2023                           #
 ##################################################################################
 
@@ -11,8 +11,10 @@ library(rsimsum)
 library(dplyr)
 library(ggplot2)
 library(writexl)
-#set working directory 
-setwd("C:/Users/rushani.wijesuriya/OneDrive - Murdoch Children's Research Institute/QBA-methods paper/Simulation study/results")
+
+#set working directory to where results (from scripts numbered 6)are stored 
+setwd("~/Simulation study/results")
+
 #import saved results  
 temp <- list.files(pattern = glob2rx("*.csv"))
 
@@ -31,8 +33,8 @@ temp2 <- temp2[order(match(temp2, dup2))]
 
 Method.names <- c("SB1-only","SB2-only","CB-only","MBx-only","MBy-only","All")
 
-true_RD <- c(-0.09,-0.12)
-true_RR <- c(log(0.55),log(0.44))
+true_RD <- c(-0.09,-0.09)
+true_RR <- c(log(0.55),log(0.60))
 
 
 for (i in 1:2) {
@@ -98,14 +100,6 @@ SIM_RD$se <- as.numeric(SIM_RD$se)
 SIM_RR$dataset <- as.numeric(SIM_RR$dataset)
 SIM_RR$b <- as.numeric(SIM_RR$b)
 SIM_RR$se <- as.numeric(SIM_RR$se)
-
-# SIM_RD$dataset <- as.numeric(levels(SIM_RD$dataset))[SIM_RD$dataset]
-# SIM_RD$b <- as.numeric(levels(SIM_RD$b))[SIM_RD$b]
-# SIM_RD$se <- as.numeric(levels(SIM_RD$se))[SIM_RD$se]
-
-# SIM_RR$dataset <- as.numeric(levels(SIM_RR$dataset))[SIM_RR$dataset]
-# SIM_RR$b <- as.numeric(levels(SIM_RR$b))[SIM_RR$b]
-# SIM_RR$se <- as.numeric(levels(SIM_RR$se))[SIM_RR$se]
 
 SIM_RD <- SIM_RD[order(SIM_RD$dataset), ]
 SIM_RR <- SIM_RR[order(SIM_RR$dataset), ]

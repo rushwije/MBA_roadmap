@@ -383,9 +383,3 @@ return(list(result_text = X, dataframes = Filter(Negate(is.null), data.list), da
 
 }
 
-# check
-# results <- sim.gen(n=2000,nsim=1000,seed=13082023,p_U=0.1,phi_1=log(0.6),phi_2=log(1.4),phi_3=log(0.7),p_S=0.8,
-#         sens_X=0.82,spec_X=0.93, sens_Y=0.8,spec_Y=0.97,phi_6=log(1.20))
-# 
-# print(results)
-
