@@ -1,7 +1,7 @@
 ---
-Author: Rushani Wijesuriya 
-  Date: 09.04.2025 
-    wrap: 72
+title: "Scripts for MBA paper"
+output: html_document
+date: "2025-04-09"
 ---
 
 # Simulation study and analysis scripts for paper "A roadmap for systematic identification and analysis of multiple biases in causal inference"
