@@ -7,26 +7,24 @@
 
 rm (list=ls())
 
-setwd("C:/Users/rushani.wijesuriya/OneDrive - Murdoch Children's Research Institute/QBA-methods paper/Simulation study")
+#setwd("~/Simulation study")
 
 library(readstata13)
 library(dplyr)
 
-
-
 #import data 
 dat <- read.dta13("HN_BF_asthma_clean.dta", nonint.factors = TRUE,generate.factors = T)
 dat <- dat %>% select("id" ,"asthma_dx_current_6y" ,"sexii" ,"mode_delivery","pre_term","birth_weight",
-                      "any_brfeed_an","mother_age_atbirth","number_sibs","smokingii","smoke_mother_pregnancyii",
+                      "any_brfeed_an","mother_age_atbirth","number_sibs","smoke_mother_pregnancyii",
                       "SEIFA_quint" ,"parent_cob_3cat","mother_asthmaii","father_asthmaii","family_history_allergyii",
-                      "ccare","quest_type_h3","brfeed")
+                      "quest_type_h3","brfeed")
 
 #generate birth weight variable 
 dat$LBW_infants <- ifelse(dat$birth_weight>=2500,0,1)
 
 #change all factor variables to correct type
-cat.vars <- c("asthma_dx_current_6y","smokingii","smoke_mother_pregnancyii","SEIFA_quint","mother_asthmaii","father_asthmaii",
-              "family_history_allergyii","ccare","LBW_infants" )
+cat.vars <- c("asthma_dx_current_6y","smoke_mother_pregnancyii","SEIFA_quint","mother_asthmaii","father_asthmaii",
+              "family_history_allergyii","LBW_infants" )
 
 dat[cat.vars]=lapply(dat[cat.vars],factor)
 
@@ -118,11 +116,11 @@ gest.SES2_b2 <- coefficients(fit)[3]
 gest.SES3_b3 <- coefficients(fit)[4]
 gest.SES4_b4 <- coefficients(fit)[5]
 gest.SES5_b5 <- coefficients(fit)[6]
-gest.smok_b6 <- coefficients(fit)[7]
+gest.msmok_b6 <- coefficients(fit)[7]
 
 
-vals <-  c(vals,as.numeric(c(gest_b0,gest.mage_b1, gest.SES2_b2,gest.SES3_b3,gest.SES4_b4,gest.SES5_b5,gest.smok_b6)))
-para_name <-c(para_name,c("gest_b0","gest.mage_b1","gest.SES2_b2","gest.SES3_b3","gest.SES4_b4","gest.SES5_b5","gest.smok_b6"))
+vals <-  c(vals,as.numeric(c(gest_b0,gest.mage_b1, gest.SES2_b2,gest.SES3_b3,gest.SES4_b4,gest.SES5_b5,gest.msmok_b6)))
+para_name <-c(para_name,c("gest_b0","gest.mage_b1","gest.SES2_b2","gest.SES3_b3","gest.SES4_b4","gest.SES5_b5","gest.msmok_b6"))
 
 #---------------------------------------------------
 #mode of delivery~ on SES and maternal age at childbirth
@@ -144,8 +142,8 @@ para_name <-c(para_name,c("dmode_b0","dmode.mage_b1","dmode.SES2_b2","dmode.SES3
 #-----------------------------------------------------
 #low birth weight  ~mode of delivery, gestational age, SES, maternal smoking, maternal age at childbirth 
 
-fit <- glm(LBW_infants~mode_delivery+pre_term+mother_age_atbirth+as.factor(SEIFA_quint)+
-             smokingii+smoke_mother_pregnancyii,family=binomial(link='logit'),data=dat)
+fit <- glm(LBW_infants~mode_delivery+pre_term+mother_age_atbirth+as.factor(SEIFA_quint)
+           +smoke_mother_pregnancyii,family=binomial(link='logit'),data=dat)
 
 LBW_b0 <- coefficients(fit)[1]
 LBW.dmode_b1 <- coefficients(fit)[2]
@@ -155,15 +153,14 @@ LBW.SES2_b4 <- coefficients(fit)[5]
 LBW.SES3_b5 <- coefficients(fit)[6]
 LBW.SES4_b6 <- coefficients(fit)[7]
 LBW.SES5_b7 <- coefficients(fit)[8]
-LBW.smok_b8 <- coefficients(fit)[9]
-LBW.msmok_b9 <- coefficients(fit)[10]
+LBW.msmok_b8 <- coefficients(fit)[9]
                   
 
 
 vals <-  c(vals,as.numeric(c(LBW_b0,LBW.dmode_b1,LBW.gest_b2,LBW.mage_b3,LBW.SES2_b4,LBW.SES3_b5,
-                             LBW.SES4_b6,LBW.SES5_b7,LBW.smok_b8,LBW.msmok_b9)))
+                             LBW.SES4_b6,LBW.SES5_b7,LBW.msmok_b8)))
 para_name <-c(para_name,c("LBW_b0","LBW.dmode_b1","LBW.gest_b2","LBW.mage_b3","LBW.SES2_b4","LBW.SES3_b5",
-                          "LBW.SES4_b6","LBW.SES5_b7","LBW.smok_b8","LBW.msmok_b9"))
+                          "LBW.SES4_b6","LBW.SES5_b7","LBW.msmok_b8"))
 
 
 #-----------------------------------------------------
@@ -189,14 +186,14 @@ exp.cobotr_b7 <- coefficients(fit)[8]
 exp.msath_b8 <- coefficients(fit)[9]
 exp.fsath_b9 <- coefficients(fit)[10]
 exp.fhalle_b10 <- coefficients(fit)[11]
-exp.dmode_b11 <- coefficients(fit)[13]
-exp.gest_b12 <- coefficients(fit)[14]
-exp.mage_b13 <- coefficients(fit)[15]
-exp.SES2_b14<- coefficients(fit)[16]
-exp.SES3_b15 <- coefficients(fit)[17]
-exp.SES4_b16 <- coefficients(fit)[18]
-exp.SES5_b17 <- coefficients(fit)[19]
-exp.msmok_b18 <- coefficients(fit)[21]
+exp.dmode_b11 <- coefficients(fit)[12]
+exp.gest_b12 <- coefficients(fit)[13]
+exp.mage_b13 <- coefficients(fit)[14]
+exp.SES2_b14<- coefficients(fit)[15]
+exp.SES3_b15 <- coefficients(fit)[16]
+exp.SES4_b16 <- coefficients(fit)[17]
+exp.SES5_b17 <- coefficients(fit)[18]
+exp.msmok_b18 <- coefficients(fit)[19]
 
 
 vals <-  c(vals,as.numeric(c(exp_b0,exp.sex_b1,exp.sibs1_b2,exp.sibs2_b3,exp.sibs3_b4,exp.LBW_b5,
@@ -233,14 +230,14 @@ out.cobotr_b8 <- coefficients(fit)[9]
 out.msath_b9 <- coefficients(fit)[10]
 out.fsath_b10 <- coefficients(fit)[11]
 out.fhalle_b11 <- coefficients(fit)[12]
-out.dmode_b12 <- coefficients(fit)[14]
-out.gest_b13 <- coefficients(fit)[15]
-out.mage_b14 <- coefficients(fit)[16]
-out.SES2_b15<- coefficients(fit)[17]
-out.SES3_b16 <- coefficients(fit)[18]
-out.SES4_b17 <- coefficients(fit)[19]
-out.SES5_b18 <- coefficients(fit)[20]
-out.msmok_b19 <- coefficients(fit)[22]
+out.dmode_b12 <- coefficients(fit)[13]
+out.gest_b13 <- coefficients(fit)[14]
+out.mage_b14 <- coefficients(fit)[15]
+out.SES2_b15<- coefficients(fit)[16]
+out.SES3_b16 <- coefficients(fit)[17]
+out.SES4_b17 <- coefficients(fit)[18]
+out.SES5_b18 <- coefficients(fit)[19]
+out.msmok_b19 <- coefficients(fit)[20]
 
 
 
@@ -279,14 +276,14 @@ Ry.cobotr_b8 <- coefficients(fit)[9]
 Ry.msath_b9 <- coefficients(fit)[10]
 Ry.fsath_b10 <- coefficients(fit)[11]
 Ry.fhalle_b11 <- coefficients(fit)[12]
-Ry.dmode_b12 <- coefficients(fit)[14]
-Ry.gest_b13 <- coefficients(fit)[15]
-Ry.mage_b14 <- coefficients(fit)[16]
-Ry.SES2_b15<- coefficients(fit)[17]
-Ry.SES3_b16 <- coefficients(fit)[18]
-Ry.SES4_b17 <- coefficients(fit)[19]
-Ry.SES5_b18 <- coefficients(fit)[20]
-Ry.msmok_b19 <- coefficients(fit)[22]
+Ry.dmode_b12 <- coefficients(fit)[13]
+Ry.gest_b13 <- coefficients(fit)[14]
+Ry.mage_b14 <- coefficients(fit)[15]
+Ry.SES2_b15<- coefficients(fit)[16]
+Ry.SES3_b16 <- coefficients(fit)[17]
+Ry.SES4_b17 <- coefficients(fit)[18]
+Ry.SES5_b18 <- coefficients(fit)[19]
+Ry.msmok_b19 <- coefficients(fit)[20]
 
 
 
