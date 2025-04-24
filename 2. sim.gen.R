@@ -112,7 +112,7 @@ D$sexii <-sample(c(0,1),n,replace=TRUE,prob=c(param[param$para_name == 'sex_m', 
                                               param[param$para_name == 'sex_f', 2])) 
 
 
-#--------Step 2: Generate maternal age at childbirth, env smoking and maternal smoking
+#--------Step 2: Generate maternal age at childbirth and maternal smoking
 
 #create dummy indicators for SES
 
@@ -138,7 +138,7 @@ D$pre_term <- rbinom(n, 1, expit(param[param$para_name == 'gest_b0', 2] +
                                    param[param$para_name == 'gest.SES3_b3', 2]*D$SEIFA_quint_2+
                                    param[param$para_name == 'gest.SES4_b4', 2]*D$SEIFA_quint_3+
                                    param[param$para_name == 'gest.SES5_b5', 2]*D$SEIFA_quint_4+
-                                   param[param$para_name == 'gest.smok_b6', 2]*D$smoke_mother_pregnancyii))
+                                   param[param$para_name == 'gest.msmok_b6', 2]*D$smoke_mother_pregnancyii))
 
 #--------Step 4: Generate mode of delivery
 
@@ -265,15 +265,14 @@ D$bf_star <- rbinom(n, 1, expit(param[param$para_name == 'exp_b0', 2] +
                                   param[param$para_name == 'exp.msath_b8', 2]*D$mother_asthmaii+
                                   param[param$para_name == 'exp.fsath_b9', 2]*D$father_asthmaii+
                                   param[param$para_name == 'exp.fhalle_b10', 2]*D$family_history_allergyii+
-                                  param[param$para_name == 'exp.ccare_b11', 2]*D$ccare+
-                                  param[param$para_name == 'exp.dmode_b12', 2]*D$mode_delivery+
-                                  param[param$para_name == 'exp.gest_b13', 2]*D$pre_term+
-                                  param[param$para_name == 'exp.mage_b14', 2]*D$mother_age_atbirth+
-                                  param[param$para_name == 'exp.SES2_b15', 2]*D$SEIFA_quint_1+
-                                  param[param$para_name == 'exp.SES3_b16', 2]*D$SEIFA_quint_2+
-                                  param[param$para_name == 'exp.SES4_b17', 2]*D$SEIFA_quint_3+
-                                  param[param$para_name == 'exp.SES5_b18', 2]*D$SEIFA_quint_4+
-                                  param[param$para_name == 'exp.msmok_b19', 2]*D$smoke_mother_pregnancyii+
+                                  param[param$para_name == 'exp.dmode_b11', 2]*D$mode_delivery+
+                                  param[param$para_name == 'exp.gest_b12', 2]*D$pre_term+
+                                  param[param$para_name == 'exp.mage_b13', 2]*D$mother_age_atbirth+
+                                  param[param$para_name == 'exp.SES2_b14', 2]*D$SEIFA_quint_1+
+                                  param[param$para_name == 'exp.SES3_b15', 2]*D$SEIFA_quint_2+
+                                  param[param$para_name == 'exp.SES4_b16', 2]*D$SEIFA_quint_3+
+                                  param[param$para_name == 'exp.SES5_b17', 2]*D$SEIFA_quint_4+
+                                  param[param$para_name == 'exp.msmok_b18', 2]*D$smoke_mother_pregnancyii+
                                   log(OR_AstarA)*D$bf_true
 ))
 
